@@ -1,22 +1,13 @@
 # Databricks notebook source
-# MAGIC %md
 # MAGIC ## Ingest Dimension Data into Bronze Layer
 
-# COMMAND ----------
 
 from pyspark.sql.types import StructType, StructField, StringType, IntegerType, DateType, TimestampType, FloatType
 import pyspark.sql.functions as F
 
-# COMMAND ----------
 
 catalog_name = 'ecommerce'
 
-# COMMAND ----------
-
-# MAGIC %md
-# MAGIC ### Brands
-
-# COMMAND ----------
 
 # Define schema for the data file
 brand_schema = StructType([
@@ -25,8 +16,7 @@ brand_schema = StructType([
     StructField("category_code", StringType(), True),
 ])
 
-# COMMAND ----------
-
+ 
 raw_data_path = "/Volumes/ecommerce/source_data/raw/ecomm-raw-data/brands.csv"
 
 df = spark.read.option('header', "true").option("delimeter", ",").schema(brand_schema).csv(raw_data_path)
@@ -37,19 +27,13 @@ df = df.withColumn("_source_file", F.col("_metadata.file_path")) \
 
 display(df.limit(5))       
 
-# COMMAND ----------
+ 
 
 df.write.format("delta") \
     .mode("overwrite") \
     .option("mergeSchema", "true") \
     .saveAsTable(f"{catalog_name}.bronze.brz_brands")
 
-# COMMAND ----------
-
-# MAGIC %md
-# MAGIC ### Category
-
-# COMMAND ----------
 
 category_schema = StructType([
     StructField("category_code", StringType(), False),
@@ -72,12 +56,7 @@ df_raw.write.format("delta") \
     .option("mergeSchema", "true") \
     .saveAsTable(f"{catalog_name}.bronze.brz_category")               
 
-# COMMAND ----------
-
-# MAGIC %md
-# MAGIC ### Products
-
-# COMMAND ----------
+ 
 
 products_schema = StructType([
     StructField("product_id", StringType(), False),
@@ -109,12 +88,7 @@ df.write.format("delta") \
     .option("mergeSchema", "true") \
     .saveAsTable(f"{catalog_name}.bronze.brz_products")    
 
-# COMMAND ----------
 
-# MAGIC %md
-# MAGIC ### Customers
-
-# COMMAND ----------
 
 customers_schema = StructType([
     StructField("customer_id", StringType(), False),
@@ -137,13 +111,7 @@ df_raw.write.format("delta") \
     .option("mergeSchema", "true") \
     .saveAsTable(f"{catalog_name}.bronze.brz_customers")      
 
-# COMMAND ----------
-
-# MAGIC %md
-# MAGIC ### Date
-
-# COMMAND ----------
-
+ 
 
 # Define schema for the data file
 date_schema = StructType([
