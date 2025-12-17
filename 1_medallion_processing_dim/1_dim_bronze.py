@@ -1,5 +1,5 @@
 # Databricks notebook source
-# MAGIC ## Ingest Dimension Data into Bronze Layer
+## Ingest Dimension Data into Bronze Layer
 
 
 from pyspark.sql.types import StructType, StructField, StringType, IntegerType, DateType, TimestampType, FloatType
