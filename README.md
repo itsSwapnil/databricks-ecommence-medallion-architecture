@@ -127,12 +127,3 @@ GitHub: https://github.com/itsSwapnil
 Email: tawareswapnil23@gmail.com
 
 ---
-
-
-## Acknowledgements
-```text
-This project was built as part of my learning journey on Databricks and modern data engineering practices.  
-I would like to give credit to the **Codebasics YouTube channel**, which provided clear and practical explanations of Databricks, Delta Lake, and Medallion Architecture concepts that inspired and guided this implementation.
-
-The project structure and ideas have been adapted and extended with my own understanding and hands-on practice.
-```
