@@ -2,13 +2,12 @@
 An end-to-end e-commerce data engineering project built on Databricks, implementing the Medallion Architecture using Delta Lake and Unity Catalog. The pipeline ingests raw CSV data from volumes, processes it through Bronze, Silver, and Gold layers using PySpark, and produces analytics-ready datasets for business reporting.
 
 
-
 ---
 
 ## Architecture
 
 ```text
-Raw CSV Data
+Raw CSV Data (Databricks Volume)
    ↓
 Bronze Layer (Raw Delta Tables)
    ↓
@@ -67,27 +66,33 @@ databricks-ecommerce-medallion-architecture/
 - Optimized for BI queries, reporting, and downstream analytics
 ---
 
----
 ## Setup
 
-### Create Catalog & Schemas
+#### 1. Create Catalog & Schemas
 
-  setup/create_catalog_and_schema.py
-
-
-### Upload Raw Data
-
-  Place CSV files under ecomm-raw-data/
+  Place below files under `setup/`
+  
+  - create_catalog_and_schema.py → to create catalog and schema for medallion architecture
 
 
-### Dimensions:
+#### 2. Upload Raw Data
 
-  1_dim_bronze → 2_dim_silver → 3_dim_gold
+  Place CSV files of child company data under `ecomm-raw-data/`
 
 
-### Facts:
+#### 3. Dimension data full load:
 
-  1_fact_bronze → 2_fact_silver → 3_fact_gold
+  ` 1_dim_bronze.py → 2_dim_silver.py → 3_dim_gold.py `
+  
+
+#### 4. Fact data full load:
+
+  ` 1_fact_bronze.py → 2_fact_silver.py → 3_fact_gold.py `
+  
+
+
+#### 5. Orchestration
+  - follow above dimension and fact files flow and create workflow for daily run.
   
 ---
 
